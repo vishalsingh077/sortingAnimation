@@ -9,7 +9,7 @@ pygame.init()
 
 scr_size = (width,height) = (1000,700)
 
-fps = 60;
+fps = 40;
 
 back =(0,0,0)
 white = (255,255,255)
@@ -17,7 +17,7 @@ green = (0,255,0)
 
 screen = pygame.display.set_mode(scr_size)
 clock = pygame.time.Clock()
-pygame.display.set_caption("quickSort")
+pygame.display.set_caption("selectionSort")
 
 ### variables
 n=200
@@ -33,23 +33,15 @@ def randArray(n ,start ,end):
         arr.append(random.randint(start,end))
     return arr
 
-def quickSort(arr,low,high):
-    if low<high:
-        pi = Partition(arr,low,high)
-        quickSort(arr,low,pi-1)
-        quickSort(arr,pi+1,high)
-
-def Partition(arr,low,high):
-    pivot = arr[high]
-    i = low -1
-    for j in range(low,high,1):
-           if arr[j] <= pivot:
-            i = i +1
-            arr[i],arr[j] = arr[j],arr[i]
-            dispArray(arr)
-    arr[i+1],arr[high] = arr[high],arr[i+1]
-    return i+1   
-
+def selectionSort(arr):
+    for i in range(n):
+        min_ind = i
+        for j in range(i+1,n):
+            if arr[min_ind] > arr[j]:
+                min_ind = j
+        arr[i],arr[min_ind] = arr[min_ind],arr[i]
+        dispArray(arr)
+                
 def dispArray(arr):
     screen.fill(white)
     for i in range(n):
@@ -71,7 +63,7 @@ while not Exit:
             Exit = True
 
     if sortedArray != arr:
-        quickSort(arr,0,n-1)
+        selectionSort(arr)
     else:
         dispArray(arr)
 pygame.quit()
